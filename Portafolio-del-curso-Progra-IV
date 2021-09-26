@@ -1,0 +1,131 @@
+index.html
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <meta charset ="UFT-8">
+    <meta http-equiv="X-UA-Compatible" content ="Ie"edge>
+    <meta name= "viewport" content ="width=device-width, initial-scale=1.0">
+    <title>Tema 2 </title>
+</head>
+<body>
+<form name="miFormulario" action="">
+<h1>Mi primer formulario de html </h1>
+<p>
+Nombre de usuario:
+</p>
+<input
+    type="text"
+    name= "nombre"
+    value="Su nombre aca"
+    autocomplete="on"
+/>
+</p>
+    
+    <input
+     type="tel" name= "telefono"
+    placeholder="(+###)####-####"/>
+    <input type="submit" value="Enviar"
+    />
+</p>
+<p>
+    <br>
+        <input type="password" 
+        name="contraseña"
+        placeholder="Contrasena"
+    />
+    <input type="hidden" value ="Enviar"/>
+    <!-- Este es un comentario-->
+    <br>
+    <textarea name= "comentario"
+        cols="10"
+        rows="5"
+        placeholder="Su comentario aca"
+    ></textarea>
+    <br>
+    <input type="number" placeholder="Edad"
+    min="1"
+    />
+    <br>
+    <input type="range" 
+        step="5" 
+        max="100"
+        value="75"/>
+<br>
+<div><p></p></div>
+<input type="date"/>
+<br>
+<input type=" time" min="7;00" max="16:00"/>
+<br>
+<input type="datetime-local"/>
+<br>
+<input type="month"/>
+<br>
+<input type=" week"/>
+<div><p></p></div>
+<br>
+<div><p></p></div>
+<br>
+<div>
+    <p>
+<input type="radio" 
+name="hombre" 
+value ="H"
+/>hombre
+<br>
+<input type="radio" name= "sexo" value="M"
+/>Mujer
+<br>
+<input type="checkbox" value ="Opcion1" checked/>Opcion1
+<br>
+<input type="checkbox" value= "Opcion2" checked/>Opcion2
+<br>
+<input type="checkbox" value= "Opcion2" checked/>Opcion3
+<div><p></p></div>
+<h4>Selecione elementos </h4>
+<select name= "opciones">
+<option value =1>Opcion1</option>
+<option value =2>Opcion2</option>
+<option value =3>Opcion3</option>
+</select>
+<br>
+selecion de elementosde seleccion multiple
+<select name ="opciones">
+<optgroup label="Estandar">
+<option value="1">Opcion1</option>
+<option value="2">Opcion2</option>
+</optgroup>
+<optgroup label="Personalizadas">
+    <option value="1">Opcion1</option>
+    <option value="2">Opcion2</option>
+    <option value="2">Opcion3</option>
+</optgroup>
+</select>
+Lista Personalizadas
+<input type="text" list="items">
+<datalist id= "items"> 
+    <option value="1">Opcion1</option>
+    <option value="2">Opcion2</option>
+    <option value="2">Opcion3</option>
+</datalist>
+<div><p></p></div>
+Botones
+<br>
+<input type="submit" value="Enviar">
+<br>
+<input
+type="image1"
+src="ninja.png"
+alt="Enviar"
+width="80"
+height="80">
+/>
+<br>
+<input
+ type="submit"
+ value="Accion personalizada"
+ formaction=""/>
+ <br>
+ <button onclick="alert('Hola mundo')">Saludar</button>
+    </form>
+</body>
+</html>
