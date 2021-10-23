@@ -1,0 +1,37 @@
+.Tarea{
+    background: color antiquewhite;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    box-shadow: 0px 5px 5 0px rgba(32 red1 32,40,0);
+    width: calc(100%-60px);
+}
+.icon{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.icon-check{
+    position: absolute;
+    left: 50px;
+}
+.icon-delete{
+    position: absolute;
+    left: 50px;
+}
+.Tarea-p{
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    margin: 24px 0 24px 24px;
+}
+.Tarea-p-completada{
+    text-decoration: line-through;
+}
