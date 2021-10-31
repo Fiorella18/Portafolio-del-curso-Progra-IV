@@ -1,79 +1,97 @@
 import './App.css'
-import react from react
-import{ Encabezado } from '../Encabezado/'
-import{ BarraBusqueda } from '../BarraBusqueda/'
-import {ListaTareas } from '../ListaTareas'
-import {Tarea } from  '../Tarea'
+import React from 'react'
+import { Encabezado } from '../Encabezado/'
+import { BarraBusqueda } from '../BarraBusqueda/'
+import { ListaTareas } from '../ListaTareas/'
+import { Tarea } from '../Tarea/'
 
-function App () {
-const TareasDefault = [
-    {texto: "Tarea 1", completada: false},
-    {texto: "Tarea 2", completada: false},
+
+function App() {
+  const tareasDefault = [
+    {texto: "Tarea 1 XX", completada: false},
+    {texto: "Tarea 2 XX", completada: false},
     {texto: "Tarea 3", completada: true}
+  ]
 
-]
-const tareascompletadas= TareasDefault.filter(tareascompletadas)
-const totalTareas= TareasDefault.length
+  const miListaTareas = 'MI_LISTA_TAREAS'
+  const almacenamientoLocal = localStorage.getItem(miListaTareas)
+  let tareasGuardadas
+  if(!almacenamientoLocal){
+    const tareasSerializadas = JSON.stringify(tareasDefault)
+    localStorage.setItem(miListaTareas, tareasSerializadas)
+    tareasGuardadas = tareasDefault
+  }else{
+    tareasGuardadas = JSON.parse(almacenamientoLocal)
+  }
+  
+  //Hooks de React para interactuar con el DOM
+  const[tareas, setTareas] = React.useState(tareasGuardadas)
+  const [valorBuscado, buscarTarea] = React.useState('')
 
-const[valorBuscado, BuscarTarea]= React.useState('')
+  const tareasCompletadas = tareas.filter(tarea => tarea.completada).length
+  const totalTareas = tareas.length
 
-let tareasBuscadas= []
-if(valorBuscado.length<0){
-    tareasBuscadas=TareasDefault
-}else{
-    tareasBuscadas=TareasDefault.filter(
-        tarea=> {
-          const textoTarea = tarea.texto.toLowerCase()
-          const textoBuscado = valorBuscado.toLowerCase()
-          return textoTarea.includes(textoBuscado)
-
-        }
+  //Comportamiento de busqueda
+  let tareasBuscadas = []
+  if(valorBuscado.length<=0){
+    tareasBuscadas = tareas
+  }else{
+    tareasBuscadas = tareas.filter(
+      tarea => {
+        const textoTarea = tarea.texto.toLowerCase()
+        const textoBuscado = valorBuscado.toLowerCase()
+        return textoTarea.includes(textoBuscado)
+      }
     )
+  }
 
-}
+  const guardar = (tareas)=>{
+    if(tareas.length <=0){
+      localStorage.removeItem(miListaTareas)
+    }else{
+      const nuevasTareas = JSON.stringify(tareas)
+      localStorage.setItem(miListaTareas, nuevasTareas)
+    }
+  }
 
-return(
-    <react.Fragment>
-       <Encabezado
-        tareascompletadas={tareascompletadas}
+  const completar = (texto) =>{
+    const indice = tareas.findIndex(tarea => tarea.texto == texto)
+    const nuevaLista = [...tareas]
+    nuevaLista[indice].completada = !nuevaLista[indice].completada
+    guardar(nuevaLista)
+    setTareas(nuevaLista)
+  }
+
+  const borrar = (texto) =>{
+    const indice = tareas.findIndex(tarea => tarea.texto == texto)
+    const nuevaLista = [...tareas]
+    nuevaLista.splice(indice, 1)
+    guardar(nuevaLista)
+    setTareas(nuevaLista)
+  }
+
+  return (
+    <React.Fragment>
+      <Encabezado
+        completadas={tareasCompletadas}
         total={totalTareas}
-    />
-    <BarraBusqueda
-        valorBuscado={valorBuscado}
-        funcionBuscar={BuscarTarea}       
-    />
-    <ListaTareas>
-        {TareasDefault.map(tarea =>(
-          <tarea
-            llave={tarea.texto}
+      />
+      <BarraBusqueda
+        valorBusqueda={valorBuscado}
+        funcionBuscar={buscarTarea}
+      />
+      <ListaTareas>
+        {tareasBuscadas.map(tarea =>(
+          <Tarea
             texto={tarea.texto}
             completada={tarea.completada}
+            onComplete={()=>completar(tarea.texto)}
+            onDelete={()=>borrar(tarea.texto)}
           />
         ))}
-    </ListaTareas>
-  
-        <ListaTareas>  
-           {tareasBuscadas.map(tarea =>(    
-               <tarea
-               texto={tarea.texto}
-               completada={tarea.completada}
-               onComplete={()=>completar(tarea.texto)}
-             />
-           ))}
-        </ListaTareas>
-        <ListaTareas>  
-           {tareasBuscadas.map(tarea =>(    
-               <tarea
-               texto={tarea.texto}
-               completada={tarea.completada}
-               onComplete={()=>completar(tarea.texto)}
-               onDelete={()=>borrar(tarea.texto)}
-             />
-           ))}
-        </ListaTareas>
-
-
-  </react.Fragment>
-
-)
+      </ListaTareas>
+    </React.Fragment> 
+  )
 }
+
+export default App;
